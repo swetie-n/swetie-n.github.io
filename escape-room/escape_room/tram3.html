@@ -58,14 +58,15 @@
         <h2>Mảnh ghép vô vọng</h2>
         <p>
           Kéo các mảnh vỡ vào khung để ghép chữ
-          <strong>LƯƠNG THIỆN</strong>.
+          <strong>LƯƠNG THIỆN</strong>. Nhưng dù cố ghép, vẫn sẽ có một khoảng
+          trống không thể lấp đầy.
         </p>
 
         <div id="slots" class="slots"></div>
         <div id="pieces" class="pieces"></div>
 
         <p id="puzzleMsg" class="puzzle-msg">
-          Hãy thử ghép lại phần người đã bị đập vỡ.
+          Bạn có thể thử ghép lại, hoặc chấp nhận ngay sự thiếu hụt.
         </p>
 
         <button id="acceptMissing" class="main-btn danger-btn hidden" type="button">
@@ -219,6 +220,16 @@
     mudPuddle.addEventListener("mousemove", clearMud);
     mudPuddle.addEventListener("click", clearMud);
 
+    mudPuddle.addEventListener("touchmove", event => {
+      event.preventDefault();
+      clearMud();
+    });
+
+    mudPuddle.addEventListener("touchstart", event => {
+      event.preventDefault();
+      clearMud();
+    });
+
     function clearMud() {
       if (mudCleared) return;
 
@@ -264,17 +275,25 @@
 
       puzzleStarted = true;
 
-      puzzlePanel.classList.remove("hidden");
+      mudPuddle.classList.add("fade-away");
+
+      setTimeout(() => {
+        mudPuddle.classList.add("hidden");
+        puzzlePanel.classList.remove("hidden");
+
+        acceptMissing.classList.remove("hidden");
+        acceptMissing.classList.add("pulse-danger");
+      }, 450);
 
       EscapeRoom.say(
-        "Những mảnh vỡ hiện ra. Hãy thử ghép lại hai chữ “LƯƠNG THIỆN”."
+        "Vũng bùn tan đi. Những mảnh vỡ hiện ra. Bạn có thể thử ghép lại, hoặc chấp nhận ngay sự thiếu hụt không thể lấp đầy."
       );
     }
 
     function buildPuzzle() {
-      const slotLetters = ["N", "Ư", "Ơ", "L", "G", " ", "T", "H", "I", "Ệ", "N"];
+      const slotLetters = ["L", "Ư", "Ơ", "N", "G", " ", "T", "H", "I", "Ệ", "N"];
       const missingIndex = 5;
-      const pieceLetters = ["L", "Ư", "G", "N", "Ơ", "T", "H", "I", "Ệ", "N"];
+      const pieceLetters = ["L", "Ư", "Ơ", "N", "G", "T", "H", "I", "Ệ", "N"];
 
       slots.innerHTML = "";
       pieces.innerHTML = "";
@@ -302,7 +321,7 @@
         slot.addEventListener("drop", event => {
           event.preventDefault();
 
-          if (!puzzleStarted || puzzleFailed || puzzleSolved) return;
+          if (!puzzleStarted || puzzleSolved) return;
 
           if (slot.dataset.locked === "true") {
             EscapeRoom.say("Khoảng trống ấy không thể lấp đầy. Có một điều đã bị tước mất.");
@@ -343,7 +362,7 @@
         piece.draggable = true;
 
         piece.addEventListener("dragstart", event => {
-          if (!puzzleStarted || piece.classList.contains("used")) {
+          if (!puzzleStarted || puzzleSolved || piece.classList.contains("used")) {
             event.preventDefault();
             return;
           }
@@ -401,13 +420,10 @@
     }
 
     acceptMissing.addEventListener("click", () => {
-      if (!puzzleFailed) {
-        EscapeRoom.say("Chưa đi đến điểm khuyết cuối cùng. Hãy thử ghép các mảnh trước.");
-        EscapeRoom.penalty("glitch", 5);
-        return;
-      }
-
       puzzleSolved = true;
+      puzzleFailed = true;
+
+      puzzlePanel.classList.add("failed");
 
       acceptMissing.classList.remove("pulse-danger");
       acceptMissing.classList.add("hidden");
@@ -418,13 +434,13 @@
       EscapeRoom.playSound("door");
 
       EscapeRoom.say(
-        "Khoảng trống đã được thừa nhận. Bi kịch bị cự tuyệt quyền làm người hiện ra rõ hơn bao giờ hết. Câu hỏi Trạm 3 đã mở."
+        "Bạn đã chấp nhận sự thiếu hụt. Có những khoảng trống không thể lấp đầy, dù ta đã thử ghép hay chưa. Câu hỏi Trạm 3 đã mở."
       );
     });
 
     openQuiz.addEventListener("click", () => {
       if (!puzzleSolved) {
-        EscapeRoom.say("Chưa chấp nhận sự thiếu hụt. Bạn chưa thể mở câu hỏi Trạm 3.");
+        EscapeRoom.say("Bạn cần chấp nhận sự thiếu hụt trước khi mở câu hỏi Trạm 3.");
         EscapeRoom.penalty("glitch", 5);
         return;
       }
