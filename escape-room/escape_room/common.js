@@ -5,13 +5,33 @@ const EscapeRoom = {
   soundOn: true,
   audioCtx: null,
   gameOverShown: false,
+  sounds: {},
 
   init() {
+    this.loadSounds();
     this.updateHumanity();
     this.updateTimer();
     this.startTimer();
     this.bindMouse();
     this.prepareAudioUnlock();
+  },
+
+  loadSounds() {
+    const map = {
+      success: "sounds/success.mp3",
+      crack: "sounds/crack.mp3",
+      glitch: "sounds/glitch.mp3",
+      slam: "sounds/slam.mp3",
+      door: "sounds/door.mp3",
+      warm: "sounds/warm.mp3",
+      ember: "sounds/ember.mp3"
+    };
+
+    Object.entries(map).forEach(([key, src]) => {
+      const audio = new Audio(src);
+      audio.preload = "auto";
+      this.sounds[key] = audio;
+    });
   },
 
   bindMouse() {
@@ -40,12 +60,18 @@ const EscapeRoom = {
         this.audioCtx.resume();
       }
 
+      Object.values(this.sounds).forEach(audio => {
+        audio.load();
+      });
+
       document.removeEventListener("click", unlock);
       document.removeEventListener("keydown", unlock);
+      document.removeEventListener("touchstart", unlock);
     };
 
     document.addEventListener("click", unlock);
     document.addEventListener("keydown", unlock);
+    document.addEventListener("touchstart", unlock);
   },
 
   say(text, targetId = "dialogue") {
@@ -118,7 +144,6 @@ const EscapeRoom = {
     if (!fill) return;
 
     this.humanity = Math.max(0, Math.min(100, this.humanity));
-
     fill.style.width = `${this.humanity}%`;
 
     fill.style.background =
@@ -133,7 +158,9 @@ const EscapeRoom = {
     this.updateHumanity();
 
     if (this.humanity <= 0) {
-      this.showGameOver("Thanh nhân tính đã cạn. Trò chơi bắt đầu lại từ chiếc lò gạch cũ.");
+      this.showGameOver(
+        "Thanh nhân tính đã cạn. Trò chơi bắt đầu lại từ chiếc lò gạch cũ."
+      );
     }
   },
 
@@ -258,7 +285,10 @@ const EscapeRoom = {
 
     explainIds.forEach(id => {
       const explain = document.getElementById(id);
-      if (explain) explain.classList.remove("hidden");
+
+      if (explain) {
+        explain.classList.remove("hidden");
+      }
     });
 
     this.say(successMessage || "Chính xác. Cánh cổng đã mở.");
@@ -281,7 +311,10 @@ const EscapeRoom = {
     this.playSound("glitch");
 
     const existing = document.getElementById("gameOverPanel");
-    if (existing) existing.remove();
+
+    if (existing) {
+      existing.remove();
+    }
 
     const panel = document.createElement("section");
     panel.id = "gameOverPanel";
@@ -343,6 +376,16 @@ const EscapeRoom = {
   },
 
   playSound(kind) {
+    if (!this.soundOn) return;
+
+    if (this.sounds[kind]) {
+      const audio = this.sounds[kind].cloneNode();
+      audio.volume = 0.45;
+      audio.play().catch(() => {});
+
+      return;
+    }
+
     if (kind === "success") {
       this.tone(392, 0.12);
       setTimeout(() => this.tone(523, 0.16), 130);
@@ -384,6 +427,11 @@ const EscapeRoom = {
     if (kind === "warm") {
       this.tone(330, 0.12);
       setTimeout(() => this.tone(440, 0.16), 130);
+    }
+
+    if (kind === "ember") {
+      this.tone(260, 0.1, "triangle", 0.035);
+      setTimeout(() => this.tone(390, 0.12, "triangle", 0.03), 120);
     }
   }
 };
