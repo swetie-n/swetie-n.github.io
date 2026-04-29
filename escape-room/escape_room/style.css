@@ -752,7 +752,7 @@ button {
 .mud-puddle {
   position: absolute;
   z-index: 37;
-  right: 9vw;
+  right: 8vw;
   bottom: 270px;
   width: 300px;
   height: 130px;
@@ -773,6 +773,18 @@ button {
     0 20px 80px rgba(0, 0, 0, 0.8),
     0 0 28px rgba(242, 215, 139, 0.16),
     inset 0 0 40px rgba(0, 0, 0, 0.9);
+}
+
+.mud-puddle.fade-away {
+  animation: mudFadeAway 0.45s ease forwards;
+}
+
+@keyframes mudFadeAway {
+  to {
+    opacity: 0;
+    transform: scale(0.88);
+    pointer-events: none;
+  }
 }
 
 .mud-layer {
@@ -879,71 +891,76 @@ button {
   transform: rotate(52deg);
 }
 
+/* PANEL GHÉP CHỮ TRẠM 3 */
+
 .puzzle-panel {
   position: absolute;
   z-index: 36;
-  left: 5vw;
-  top: 17vh;
-  width: min(560px, 43vw);
-  max-height: calc(100vh - 300px);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(720px, 90vw);
+  max-height: calc(100vh - 220px);
   overflow-y: auto;
-  padding: 22px;
-  border-radius: 22px;
-  background: rgba(0, 0, 0, 0.74);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.7);
+  padding: 28px;
+  border-radius: 26px;
+  background: rgba(0, 0, 0, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.8);
 }
 
 .puzzle-panel.failed {
   border-color: rgba(255, 111, 97, 0.62);
   box-shadow:
     0 0 35px rgba(125, 36, 30, 0.5),
-    0 20px 70px rgba(0, 0, 0, 0.7);
+    0 30px 90px rgba(0, 0, 0, 0.8);
 }
 
 .puzzle-panel h2 {
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   color: var(--paper-light);
+  font-size: 1.8rem;
 }
 
 .puzzle-panel p {
-  line-height: 1.55;
+  line-height: 1.6;
+  font-size: 1.05rem;
 }
 
 .slots,
 .pieces {
   display: flex;
-  gap: 8px;
+  gap: 12px;
   flex-wrap: wrap;
-  margin: 16px 0;
+  margin: 20px 0;
 }
 
 .slot,
 .piece {
-  width: 48px;
-  height: 52px;
+  width: 64px;
+  height: 72px;
   display: grid;
   place-items: center;
-  border-radius: 14px;
-  font-size: 1.28rem;
+  border-radius: 16px;
+  font-size: 1.7rem;
   font-weight: 900;
 }
 
 .slot {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px dashed rgba(255, 255, 255, 0.38);
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px dashed rgba(255, 255, 255, 0.45);
   color: var(--paper-light);
 }
 
 .slot.filled {
   border-style: solid;
-  background: rgba(242, 215, 139, 0.15);
+  background: rgba(242, 215, 139, 0.2);
 }
 
 .slot.missing {
-  background: rgba(125, 36, 30, 0.28);
+  background: rgba(125, 36, 30, 0.4);
   color: #ff9a90;
-  border-color: rgba(255, 111, 97, 0.55);
+  border-color: rgba(255, 111, 97, 0.6);
 }
 
 .space-slot {
@@ -954,16 +971,21 @@ button {
 }
 
 .piece {
-  background: rgba(234, 223, 199, 0.92);
+  background: rgba(234, 223, 199, 0.95);
   color: #23150e;
   cursor: grab;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  transition: 0.2s;
+}
+
+.piece:hover {
+  transform: scale(1.08);
 }
 
 .piece.used {
   opacity: 0.25;
   cursor: not-allowed;
-  transform: scale(0.92);
+  transform: scale(0.9);
 }
 
 .puzzle-msg {
@@ -1308,18 +1330,27 @@ button {
     bottom: 150px;
   }
 
-  .radio-panel,
-  .puzzle-panel {
+  .radio-panel {
     width: min(560px, 86vw);
     left: 50%;
     transform: translateX(-50%);
     top: 16vh;
   }
 
-  .mud-puddle {
-    left: 50%;
-    transform: translateX(-50%);
+  .station-3 .mud-puddle {
+    right: 6vw;
+    left: auto;
+    transform: none;
     bottom: 235px;
+  }
+
+  .station-3 .puzzle-panel {
+    top: 50%;
+    left: 50%;
+    right: auto;
+    width: min(680px, 90vw);
+    max-height: calc(100vh - 220px);
+    transform: translate(-50%, -50%);
   }
 
   .porridge {
@@ -1365,16 +1396,64 @@ button {
     bottom: 270px;
   }
 
-  .radio-panel,
-  .puzzle-panel {
+  .radio-panel {
     top: 24vh;
-    max-height: calc(100vh - 430px);
+    width: min(520px, 88vw);
   }
 
-  .mud-puddle {
-    width: 250px;
-    height: 112px;
-    bottom: 235px;
+  .station-3 .mud-puddle {
+    top: 165px;
+    right: 16px;
+    left: auto;
+    bottom: auto;
+    transform: none;
+    width: 220px;
+    height: 90px;
+    z-index: 38;
+  }
+
+  .station-3 .puzzle-panel {
+    top: 55%;
+    left: 50%;
+    right: auto;
+    width: 92vw;
+    max-height: calc(100vh - 380px);
+    padding: 18px;
+    transform: translate(-50%, -50%);
+    z-index: 39;
+  }
+
+  .station-3 .slot,
+  .station-3 .piece {
+    width: 46px;
+    height: 52px;
+    font-size: 1.2rem;
+    border-radius: 12px;
+  }
+
+  .station-3 .slots,
+  .station-3 .pieces {
+    gap: 8px;
+    margin: 12px 0;
+  }
+
+  .station-3 .puzzle-panel h2 {
+    font-size: 1.25rem;
+  }
+
+  .station-3 .puzzle-panel p,
+  .station-3 .puzzle-msg {
+    font-size: 0.92rem;
+    line-height: 1.4;
+  }
+
+  .station-3 #acceptMissing {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .station-3 .wood-gate {
+    display: none;
   }
 
   .alley-door {
