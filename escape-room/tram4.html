@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trạm 4 - Sân đình làng Vũ Đại</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="station-page station-4">
+  <div id="flash"></div>
+  <div id="crack"></div>
+  <div id="glitch"></div>
+  <div id="slam"></div>
+  <div id="blackFog"></div>
+
+  <main class="game-screen flashlight-mode alley-mode">
+    <header class="topbar">
+      <div class="humanity-box">
+        <span>Thanh nhân tính</span>
+        <div class="humanity-track">
+          <div id="humanityFill" class="humanity-fill"></div>
+        </div>
+      </div>
+
+      <div id="timer" class="timer">45:00</div>
+
+      <div class="locks">
+        <span class="lock broken">🔓</span>
+        <span class="lock broken">🔓</span>
+        <span class="lock broken">🔓</span>
+        <span id="lock4" class="lock">🔒</span>
+      </div>
+    </header>
+
+    <section class="viewport village-alley">
+      <div class="sky dark-sky"></div>
+      <div class="back-layer village-back"></div>
+      <div class="mid-layer narrow-alley"></div>
+      <div class="fog fog-a"></div>
+      <div class="fog fog-b"></div>
+
+      <div id="flashlight"></div>
+
+      <button class="alley-door d1" data-door="1" type="button" aria-label="Cánh cửa 1"></button>
+      <button class="alley-door d2" data-door="2" type="button" aria-label="Cánh cửa 2"></button>
+      <button class="alley-door d3" data-door="3" type="button" aria-label="Cánh cửa 3"></button>
+
+      <div id="gate" class="wood-gate locked">
+        <div class="gate-door"></div>
+        <div class="gate-label">Thoát khỏi làng?</div>
+      </div>
+    </section>
+
+    <section class="bottom-panel">
+      <div id="dialogue" class="dialogue">
+        Con ngõ hẹp hun hút. Ba cánh cửa hé mở, lấp ló những ánh mắt im lặng.
+        Hãy gõ cửa cầu cứu.
+      </div>
+
+      <div class="control-panel">
+        <button id="openQuiz" class="main-btn hidden" type="button">
+          Mở câu hỏi Trạm 4
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <aside id="quizPanel" class="quiz-side-panel hidden" aria-hidden="true">
+    <div class="quiz-side-card">
+      <div class="quiz-side-header">
+        <div>
+          <p class="quiz-kicker">Hoạt động 3</p>
+          <h2>Trạm 4: Sân đình làng Vũ Đại</h2>
+        </div>
+
+        <button id="closeQuiz" class="main-btn ghost" type="button">
+          Đóng
+        </button>
+      </div>
+
+      <p class="quiz-note">
+        Chọn đáp án cho 2 câu hỏi, sau đó nhập mã gồm 2 chữ cái đáp án đúng.
+      </p>
+
+      <div class="question-card">
+        <h3>Câu 7</h3>
+        <p>
+          Phản ứng của những người dân làng Vũ Đại, như đội Tảo, dân làng,
+          trước cái chết của Chí Phèo và Bá Kiến cho thấy điều gì?
+        </p>
+
+        <button class="answer" data-q="7" data-value="A" type="button">
+          A. Họ đã có cái nhìn thấu cảm và xót thương hơn cho số phận của Chí Phèo.
+        </button>
+        <button class="answer" data-q="7" data-value="B" type="button">
+          B. Dân làng Vũ Đại đã hoàn toàn thức tỉnh và sẵn sàng đứng lên đấu tranh.
+        </button>
+        <button class="answer" data-q="7" data-value="C" type="button">
+          C. Một thái độ bàng quan, hả hê, chứng tỏ những định kiến xã hội vẫn còn tồn tại vững chắc.
+        </button>
+        <button class="answer" data-q="7" data-value="D" type="button">
+          D. Họ nhận ra sự tàn ác của Bá Kiến và ân hận vì đã xa lánh Chí Phèo.
+        </button>
+
+        <div id="explain7" class="explain hidden">
+          <strong>Giải thích:</strong>
+          Dân làng bàn tán xôn xao, nhiều kẻ mừng thầm hoặc mừng ra mặt,
+          buông lời lạnh lùng “hai thằng ấy chết thì không ai tiếc”.
+          Phản ứng ấy cho thấy sự bàng quan, hả hê và định kiến xã hội vẫn còn dai dẳng.
+        </div>
+      </div>
+
+      <div class="question-card">
+        <h3>Câu 8</h3>
+        <p>
+          Xét về mặt loại hình, “Chí Phèo” là một truyện ngắn có kết cấu như thế nào?
+        </p>
+
+        <button class="answer" data-q="8" data-value="A" type="button">
+          A. Kết thúc mở, câu chuyện khép lại nhưng những mâu thuẫn, xung đột trong truyện vẫn cứ tiềm tàng.
+        </button>
+        <button class="answer" data-q="8" data-value="B" type="button">
+          B. Kết thúc đóng, giải quyết trọn vẹn và triệt để số phận của tất cả các nhân vật.
+        </button>
+        <button class="answer" data-q="8" data-value="C" type="button">
+          C. Kết thúc có hậu, hướng tới một tương lai tươi sáng và cách mạng.
+        </button>
+        <button class="answer" data-q="8" data-value="D" type="button">
+          D. Kết thúc vòng tròn, lặp lại hoàn toàn sự việc ở phần mở đầu.
+        </button>
+
+        <div id="explain8" class="explain hidden">
+          <strong>Giải thích:</strong>
+          Truyện có kết thúc mở, đánh dấu nhãn quan về hiện thực như một tình trạng
+          còn đang vận động, bất định; những mâu thuẫn vẫn tiềm tàng.
+        </div>
+      </div>
+
+      <div class="code-area">
+        <p>Mã vượt trạm gồm 2 chữ cái đáp án đúng.</p>
+        <input id="codeInput" maxlength="2" placeholder="Nhập mã..." />
+        <button id="submitCode" class="main-btn" type="button">
+          Mở khóa cuối
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <section id="endingPanel" class="ending-panel hidden">
+    <div class="ending-kiln">
+      <div class="kiln-mouth"></div>
+    </div>
+
+    <div class="ending-card">
+      <h1>Bạn đã thoát...</h1>
+
+      <p>
+        ...hay chưa bao giờ thoát khỏi?
+        Cảnh cuối trở lại chiếc lò gạch cũ, gợi vòng lặp của những kiếp người bị bỏ rơi.
+      </p>
+
+      <p class="ending-code">
+        Mật mã: <strong">THẤU CẢM</strong>
+      </p>
+
+      <button class="main-btn" type="button" onclick="restartGame()">
+        Chơi lại
+      </button>
+
+      <button
+        class="main-btn ghost"
+        type="button"
+        onclick="window.open('https://chatgpt.com/g/g-69f1cc4a3c388191a8bc8ba0d21c8957-nguoi-dan-lang-vu-dai', '_blank')"
+      >
+        Trò chuyện cùng chatbot
+      </button>
+    </div>
+  </section>
+
+  <script src="common.js"></script>
+
+  <script>
+	let horrorCtx = null;
+let horrorStarted = false;
+let horrorNodes = [];
+
+function startRuralHorrorAmbient() {
+  if (horrorStarted) return;
+  horrorStarted = true;
+
+  horrorCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const ctx = horrorCtx;
+  const now = ctx.currentTime;
+
+  // Gió đêm ù thấp
+  const windBuffer = ctx.createBuffer(1, ctx.sampleRate * 5, ctx.sampleRate);
+  const windData = windBuffer.getChannelData(0);
+
+  for (let i = 0; i < windData.length; i++) {
+    windData[i] = Math.random() * 2 - 1;
+  }
+
+  const wind = ctx.createBufferSource();
+  wind.buffer = windBuffer;
+  wind.loop = true;
+
+  const windLow = ctx.createBiquadFilter();
+  windLow.type = "lowpass";
+  windLow.frequency.value = 420;
+
+  const windHigh = ctx.createBiquadFilter();
+  windHigh.type = "highpass";
+  windHigh.frequency.value = 45;
+
+  const windGain = ctx.createGain();
+  windGain.gain.setValueAtTime(0.001, now);
+  windGain.gain.exponentialRampToValueAtTime(0.035, now + 2);
+
+  wind.connect(windLow);
+  windLow.connect(windHigh);
+  windHigh.connect(windGain);
+  windGain.connect(ctx.destination);
+  wind.start();
+
+  horrorNodes.push(wind, windGain);
+
+  // Drone trầm như tiếng đình làng xa
+  const drone = ctx.createOscillator();
+  drone.type = "sine";
+  drone.frequency.value = 58;
+
+  const droneGain = ctx.createGain();
+  droneGain.gain.setValueAtTime(0.001, now);
+  droneGain.gain.exponentialRampToValueAtTime(0.028, now + 3);
+
+  drone.connect(droneGain);
+  droneGain.connect(ctx.destination);
+  drone.start();
+
+  horrorNodes.push(drone, droneGain);
+
+  // Côn trùng rít nhỏ, chập chờn
+  const insect = ctx.createOscillator();
+  insect.type = "triangle";
+  insect.frequency.value = 4300;
+
+  const insectGain = ctx.createGain();
+  insectGain.gain.setValueAtTime(0.001, now);
+  insectGain.gain.exponentialRampToValueAtTime(0.007, now + 2);
+
+  const insectLfo = ctx.createOscillator();
+  insectLfo.frequency.value = 7.5;
+
+  const insectLfoGain = ctx.createGain();
+  insectLfoGain.gain.value = 0.006;
+
+  insectLfo.connect(insectLfoGain);
+  insectLfoGain.connect(insectGain.gain);
+
+  insect.connect(insectGain);
+  insectGain.connect(ctx.destination);
+
+  insect.start();
+  insectLfo.start();
+
+  horrorNodes.push(insect, insectGain, insectLfo);
+
+  // Tiếng chó xa xa ngẫu nhiên
+  function distantDog() {
+    if (!horrorStarted) return;
+
+    const t = ctx.currentTime;
+
+    for (let i = 0; i < 2; i++) {
+      setTimeout(() => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const filter = ctx.createBiquadFilter();
+
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(260, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(120, ctx.currentTime + 0.18);
+
+        filter.type = "lowpass";
+        filter.frequency.value = 850;
+
+        gain.gain.setValueAtTime(0.001, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.045, ctx.currentTime + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.28);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start();
+        osc.stop(ctx.currentTime + 0.32);
+      }, i * 260);
+    }
+
+    setTimeout(distantDog, 9000 + Math.random() * 12000);
+  }
+
+  // Mõ tre / tiếng gõ xa
+  function bambooKnock() {
+    if (!horrorStarted) return;
+
+    const buffer = ctx.createBuffer(1, ctx.sampleRate * 0.08, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+
+    for (let i = 0; i < data.length; i++) {
+      data[i] = (Math.random() * 2 - 1) * (1 - i / data.length);
+    }
+
+    const knock = ctx.createBufferSource();
+    knock.buffer = buffer;
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = "bandpass";
+    filter.frequency.value = 520;
+    filter.Q.value = 8;
+
+    const gain = ctx.createGain();
+    gain.gain.value = 0.05;
+
+    knock.connect(filter);
+    filter.connect(gain);
+    gain.connect(ctx.destination);
+
+    knock.start();
+
+    setTimeout(bambooKnock, 6000 + Math.random() * 10000);
+  }
+
+  setTimeout(distantDog, 2500);
+  setTimeout(bambooKnock, 4200);
+}
+
+document.addEventListener("click", startRuralHorrorAmbient, { once: true });
+document.addEventListener("touchstart", startRuralHorrorAmbient, { once: true });
+document.addEventListener("keydown", startRuralHorrorAmbient, { once: true });
+    const STATION_NUMBER = 4;
+    const CORRECT_CODE = "CA";
+
+    const answers = {};
+
+    let doorsClosed = 0;
+    let quizReady = false;
+    let endingShown = false;
+
+    const openQuiz = document.getElementById("openQuiz");
+    const closeQuiz = document.getElementById("closeQuiz");
+    const quizPanel = document.getElementById("quizPanel");
+    const submitCode = document.getElementById("submitCode");
+    const codeInput = document.getElementById("codeInput");
+    const gate = document.getElementById("gate");
+    const endingPanel = document.getElementById("endingPanel");
+let alleyAudioCtx = null;
+
+function playDoorSlamEcho(intensity = 1) {
+  alleyAudioCtx =
+    alleyAudioCtx || new (window.AudioContext || window.webkitAudioContext)();
+
+  const ctx = alleyAudioCtx;
+  const now = ctx.currentTime;
+
+  // 🔥 tiếng "đập cửa" chính (noise burst)
+  const buffer = ctx.createBuffer(1, ctx.sampleRate * 0.2, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+
+  for (let i = 0; i < data.length; i++) {
+    data[i] = (Math.random() * 2 - 1) * (1 - i / data.length);
+  }
+
+  const slam = ctx.createBufferSource();
+  slam.buffer = buffer;
+
+  const slamGain = ctx.createGain();
+  slamGain.gain.value = 0.5 * intensity;
+
+  // 🔊 echo
+  const delay = ctx.createDelay();
+  delay.delayTime.value = 0.22;
+
+  const feedback = ctx.createGain();
+  feedback.gain.value = 0.45;
+
+  // 🎛️ lọc cho “âm gỗ”
+  const filter = ctx.createBiquadFilter();
+  filter.type = "lowpass";
+  filter.frequency.value = 1200;
+
+  slam.connect(slamGain);
+  slamGain.connect(filter);
+  filter.connect(ctx.destination);
+
+  slamGain.connect(delay);
+  delay.connect(feedback);
+  feedback.connect(delay);
+  delay.connect(filter);
+
+  slam.start(now);
+}
+
+    EscapeRoom.init();
+
+    document.querySelectorAll(".alley-door").forEach(door => {
+      door.addEventListener("click", () => {
+        if (door.classList.contains("closed")) return;
+
+        door.classList.add("closed");
+        doorsClosed++;
+
+        const doorNumber = door.dataset.door;
+
+        if (doorsClosed === 1) {
+          document.body.classList.add("jolt-left");
+          setTimeout(() => {
+            document.body.classList.remove("jolt-left");
+          }, 350);
+        }
+
+        if (doorsClosed === 2) {
+          document.body.classList.add("jolt-right");
+          setTimeout(() => {
+            document.body.classList.remove("jolt-right");
+          }, 350);
+        }
+
+        if (doorsClosed === 3) {
+          document.body.classList.add("jolt-back");
+          setTimeout(() => {
+            document.body.classList.remove("jolt-back");
+          }, 450);
+        }
+
+        EscapeRoom.flash("slam", 420);
+playDoorSlamEcho(1 + doorsClosed * 2); // 🔥 càng về sau càng nặng
+document.body.classList.add("screen-shake");
+setTimeout(() => {
+  document.body.classList.remove("screen-shake");
+}, 250);
+
+        EscapeRoom.say(
+          `Cánh cửa ${doorNumber} đóng SẦM! Không ai trả lời. Lần cự tuyệt thứ ${doorsClosed}.`
+        );
+
+        if (doorsClosed >= 3) {
+          revealFinalQuiz();
+        }
+      });
+    });
+
+    function revealFinalQuiz() {
+      if (quizReady) return;
+
+      quizReady = true;
+
+      blackFog();
+      openQuiz.classList.remove("hidden");
+
+      EscapeRoom.say(
+        "Ba cánh cửa đều đóng lại. Sương đen xộc thẳng che kín con ngõ. Bảng câu hỏi cuối cùng đã mở."
+      );
+    }
+
+    function blackFog() {
+      const fog = document.getElementById("blackFog");
+
+      if (!fog) return;
+
+      fog.classList.add("show");
+
+      setTimeout(() => {
+        fog.classList.remove("show");
+      }, 1100);
+    }
+
+    openQuiz.addEventListener("click", () => {
+      if (!quizReady) {
+        EscapeRoom.say("Chưa gõ đủ 3 cánh cửa. Hãy thử cầu cứu hết những cánh cửa còn hé mở.");
+        EscapeRoom.penalty("glitch", 5);
+        return;
+      }
+
+      quizPanel.classList.remove("hidden");
+      quizPanel.setAttribute("aria-hidden", "false");
+
+      EscapeRoom.say("Bảng câu hỏi Trạm 4 đã mở. Chọn đáp án, rồi nhập mã gồm 2 chữ cái.");
+    });
+
+    closeQuiz.addEventListener("click", () => {
+      quizPanel.classList.add("hidden");
+      quizPanel.setAttribute("aria-hidden", "true");
+
+      EscapeRoom.say("Bảng câu hỏi đã tạm khép lại. Những cánh cửa trong làng vẫn im lìm.");
+    });
+
+    document.querySelectorAll(".answer").forEach(button => {
+      button.addEventListener("click", () => {
+        const q = button.dataset.q;
+        const value = button.dataset.value;
+
+        answers[q] = value;
+
+        document
+          .querySelectorAll(`.answer[data-q="${q}"]`)
+          .forEach(btn => btn.classList.remove("selected"));
+
+        button.classList.add("selected");
+
+        EscapeRoom.say(
+          `Bạn đã chọn câu ${q}: ${value}. Mã hiện tại: ${answers[7] || "_"}${answers[8] || "_"}`
+        );
+      });
+    });
+
+    codeInput.addEventListener("input", () => {
+      codeInput.value = codeInput.value.toUpperCase();
+    });
+
+    submitCode.addEventListener("click", () => {
+      const pickedCode = `${answers[7] || ""}${answers[8] || ""}`;
+      const inputCode = codeInput.value.trim().toUpperCase();
+
+      EscapeRoom.checkStationCode({
+        pickedCode,
+        inputCode,
+        correctCode: CORRECT_CODE,
+        stationNumber: STATION_NUMBER,
+        lockId: "lock4",
+        gateId: "gate",
+        explainIds: ["explain7", "explain8"],
+        successMessage:
+          "Chính xác. Mã CA đã mở khóa cuối cùng. Nhưng con đường thoát lại dẫn về chiếc lò gạch cũ.",
+        wrongMessage:
+          "Mã chưa đúng. Con ngõ vẫn đặc sương. Hãy xem lại đáp án.",
+        onSuccess() {
+          setTimeout(() => {
+            showEnding();
+          }, 5000);
+        }
+      });
+    });
+
+    gate.addEventListener("click", () => {
+      if (!gate.classList.contains("open")) {
+        EscapeRoom.say("Cổng vẫn khóa. Hãy giải đúng mã Trạm 4 trước.");
+        EscapeRoom.penalty("glitch", 5);
+        return;
+      }
+
+      showEnding();
+    });
+
+    function showEnding() {
+      if (endingShown) return;
+
+      endingShown = true;
+
+      EscapeRoom.stopTimer();
+
+      quizPanel.classList.add("hidden");
+      quizPanel.setAttribute("aria-hidden", "true");
+
+      endingPanel.classList.remove("hidden");
+      endingPanel.classList.add("show");
+
+      EscapeRoom.say(
+        "Ổ khóa cuối cùng vỡ vụn. Màn hình trở lại lò gạch cũ: một vòng lặp âm thầm hiện ra."
+      );
+    }
+
+    function restartGame() {
+      EscapeRoom.restart();
+    }
+  </script>
+</body>
+</html>
