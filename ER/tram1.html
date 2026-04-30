@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trạm 1 - Chiếc lò gạch cũ bỏ không</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="station-page station-1">
+  <div id="flash"></div>
+  <div id="crack"></div>
+  <div id="glitch"></div>
+
+  <main class="game-screen flashlight-mode">
+    <header class="topbar">
+      <div class="humanity-box">
+        <span>Thanh nhân tính</span>
+        <div class="humanity-track">
+          <div id="humanityFill" class="humanity-fill"></div>
+        </div>
+      </div>
+
+      <div id="timer" class="timer">45:00</div>
+
+      <div class="locks">
+        <span id="lock1" class="lock">🔒</span>
+        <span class="lock">🔒</span>
+        <span class="lock">🔒</span>
+        <span class="lock">🔒</span>
+      </div>
+    </header>
+
+    <section class="viewport">
+      <div class="sky"></div>
+      <div class="back-layer"></div>
+      <div class="mid-layer"></div>
+      <div class="fog fog-a"></div>
+      <div class="fog fog-b"></div>
+
+      <div id="flashlight"></div>
+
+      <button id="ember" class="ember" aria-label="Tàn tro đỏ"></button>
+
+      <div id="kiln" class="kiln hidden-kiln">
+        <div class="kiln-mouth"></div>
+      </div>
+
+      <div id="gate" class="wood-gate locked">
+        <div class="gate-door"></div>
+        <div class="gate-label">Cổng sang Trạm 2</div>
+      </div>
+    </section>
+
+    <section class="bottom-panel">
+      <div id="dialogue" class="dialogue">
+        Rọi đèn pin khắp màn hình. Hãy tìm tàn tro đỏ còn sót lại bên lò gạch cũ.
+      </div>
+
+      <div class="control-panel">
+        <button id="openQuiz" class="main-btn hidden" type="button">
+          Mở câu hỏi Trạm 1
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <aside id="quizPanel" class="quiz-side-panel hidden" aria-hidden="true">
+    <div class="quiz-side-card">
+      <div class="quiz-side-header">
+        <div>
+          <p class="quiz-kicker">Hoạt động 3</p>
+          <h2>Trạm 1: Chiếc lò gạch cũ bỏ không</h2>
+        </div>
+
+        <button id="closeQuiz" class="main-btn ghost" type="button">
+          Đóng
+        </button>
+      </div>
+
+      <p class="quiz-note">
+        Chọn đáp án cho 2 câu hỏi, sau đó nhập mã gồm 2 chữ cái đáp án đúng.
+      </p>
+
+      <div class="question-card">
+        <h3>Câu 1</h3>
+        <p>
+          Đoạn mở đầu tác phẩm “Hắn vừa đi vừa chửi...” không có một điểm nhìn
+          duy nhất bao trùm mà là sự phối hợp của nhiều loại điểm nhìn.
+          Đây được gọi là kĩ thuật trần thuật gì?
+        </p>
+
+        <button class="answer" data-q="1" data-value="A" type="button">
+          A. Trần thuật ngôi thứ nhất
+        </button>
+        <button class="answer" data-q="1" data-value="B" type="button">
+          B. Trần thuật toàn tri
+        </button>
+        <button class="answer" data-q="1" data-value="C" type="button">
+          C. Trần thuật đa thanh
+        </button>
+        <button class="answer" data-q="1" data-value="D" type="button">
+          D. Trần thuật khách quan
+        </button>
+
+        <div id="explain1" class="explain hidden">
+          <strong>Giải thích:</strong>
+          Đây là một đoạn văn minh họa cho trần thuật đa thanh, một đột phá
+          trong nghệ thuật tự sự hiện đại.
+        </div>
+      </div>
+
+      <div class="question-card">
+        <h3>Câu 2</h3>
+        <p>
+          Trong câu văn “Có hề gì? Trời có của riêng nhà nào?” xuất hiện ở đoạn
+          mở đầu, đây là điểm nhìn của ai?
+        </p>
+
+        <button class="answer" data-q="2" data-value="A" type="button">
+          A. Người kể chuyện
+        </button>
+        <button class="answer" data-q="2" data-value="B" type="button">
+          B. Chí Phèo
+        </button>
+        <button class="answer" data-q="2" data-value="C" type="button">
+          C. Dân làng Vũ Đại
+        </button>
+        <button class="answer" data-q="2" data-value="D" type="button">
+          D. Bá Kiến
+        </button>
+
+        <div id="explain2" class="explain hidden">
+          <strong>Giải thích:</strong>
+          Đây là điểm nhìn của nhân vật, tức dân làng Vũ Đại; vừa là lời nửa
+          trực tiếp, vừa là lời nhại của người kể chuyện đối với ý thức của dân làng.
+        </div>
+      </div>
+
+      <div class="code-area">
+        <p>Mã vượt trạm gồm 2 chữ cái đáp án đúng.</p>
+        <input id="codeInput" maxlength="2" placeholder="Nhập mã..." />
+        <button id="submitCode" class="main-btn" type="button">Mở khóa</button>
+      </div>
+    </div>
+  </aside>
+
+  <script src="common.js"></script>
+
+  <script>
+let horrorCtx = null;
+let horrorStarted = false;
+let horrorNodes = [];
+
+function startRuralHorrorAmbient() {
+  if (horrorStarted) return;
+  horrorStarted = true;
+
+  horrorCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const ctx = horrorCtx;
+  const now = ctx.currentTime;
+
+  // Gió đêm ù thấp
+  const windBuffer = ctx.createBuffer(1, ctx.sampleRate * 5, ctx.sampleRate);
+  const windData = windBuffer.getChannelData(0);
+
+  for (let i = 0; i < windData.length; i++) {
+    windData[i] = Math.random() * 2 - 1;
+  }
+
+  const wind = ctx.createBufferSource();
+  wind.buffer = windBuffer;
+  wind.loop = true;
+
+  const windLow = ctx.createBiquadFilter();
+  windLow.type = "lowpass";
+  windLow.frequency.value = 420;
+
+  const windHigh = ctx.createBiquadFilter();
+  windHigh.type = "highpass";
+  windHigh.frequency.value = 45;
+
+  const windGain = ctx.createGain();
+  windGain.gain.setValueAtTime(0.001, now);
+  windGain.gain.exponentialRampToValueAtTime(0.035, now + 2);
+
+  wind.connect(windLow);
+  windLow.connect(windHigh);
+  windHigh.connect(windGain);
+  windGain.connect(ctx.destination);
+  wind.start();
+
+  horrorNodes.push(wind, windGain);
+
+  // Drone trầm như tiếng đình làng xa
+  const drone = ctx.createOscillator();
+  drone.type = "sine";
+  drone.frequency.value = 58;
+
+  const droneGain = ctx.createGain();
+  droneGain.gain.setValueAtTime(0.001, now);
+  droneGain.gain.exponentialRampToValueAtTime(0.028, now + 3);
+
+  drone.connect(droneGain);
+  droneGain.connect(ctx.destination);
+  drone.start();
+
+  horrorNodes.push(drone, droneGain);
+
+  // Côn trùng rít nhỏ, chập chờn
+  const insect = ctx.createOscillator();
+  insect.type = "triangle";
+  insect.frequency.value = 4300;
+
+  const insectGain = ctx.createGain();
+  insectGain.gain.setValueAtTime(0.001, now);
+  insectGain.gain.exponentialRampToValueAtTime(0.007, now + 2);
+
+  const insectLfo = ctx.createOscillator();
+  insectLfo.frequency.value = 7.5;
+
+  const insectLfoGain = ctx.createGain();
+  insectLfoGain.gain.value = 0.006;
+
+  insectLfo.connect(insectLfoGain);
+  insectLfoGain.connect(insectGain.gain);
+
+  insect.connect(insectGain);
+  insectGain.connect(ctx.destination);
+
+  insect.start();
+  insectLfo.start();
+
+  horrorNodes.push(insect, insectGain, insectLfo);
+
+  // Tiếng chó xa xa ngẫu nhiên
+  function distantDog() {
+    if (!horrorStarted) return;
+
+    const t = ctx.currentTime;
+
+    for (let i = 0; i < 2; i++) {
+      setTimeout(() => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const filter = ctx.createBiquadFilter();
+
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(260, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(120, ctx.currentTime + 0.18);
+
+        filter.type = "lowpass";
+        filter.frequency.value = 850;
+
+        gain.gain.setValueAtTime(0.001, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.045, ctx.currentTime + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.28);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start();
+        osc.stop(ctx.currentTime + 0.32);
+      }, i * 260);
+    }
+
+    setTimeout(distantDog, 9000 + Math.random() * 12000);
+  }
+
+  // Mõ tre / tiếng gõ xa
+  function bambooKnock() {
+    if (!horrorStarted) return;
+
+    const buffer = ctx.createBuffer(1, ctx.sampleRate * 0.08, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+
+    for (let i = 0; i < data.length; i++) {
+      data[i] = (Math.random() * 2 - 1) * (1 - i / data.length);
+    }
+
+    const knock = ctx.createBufferSource();
+    knock.buffer = buffer;
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = "bandpass";
+    filter.frequency.value = 520;
+    filter.Q.value = 8;
+
+    const gain = ctx.createGain();
+    gain.gain.value = 0.05;
+
+    knock.connect(filter);
+    filter.connect(gain);
+    gain.connect(ctx.destination);
+
+    knock.start();
+
+    setTimeout(bambooKnock, 6000 + Math.random() * 10000);
+  }
+
+  setTimeout(distantDog, 2500);
+  setTimeout(bambooKnock, 4200);
+}
+
+document.addEventListener("click", startRuralHorrorAmbient, { once: true });
+document.addEventListener("touchstart", startRuralHorrorAmbient, { once: true });
+document.addEventListener("keydown", startRuralHorrorAmbient, { once: true });
+    const STATION_NUMBER = 1;
+    const CORRECT_CODE = "CC";
+    const NEXT_PAGE = "tram2.html";
+
+    const answers = {};
+    let kilnFound = false;
+    
+    let station1AudioCtx = null;
+
+function playNightPingEcho() {
+  station1AudioCtx =
+    station1AudioCtx || new (window.AudioContext || window.webkitAudioContext)();
+
+  const ctx = station1AudioCtx;
+  const now = ctx.currentTime;
+
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  const delay = ctx.createDelay();
+  const feedback = ctx.createGain();
+  const filter = ctx.createBiquadFilter();
+
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(880, now);
+  osc.frequency.exponentialRampToValueAtTime(520, now + 0.25);
+
+  gain.gain.setValueAtTime(0.001, now);
+  gain.gain.exponentialRampToValueAtTime(0.12, now + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + 1.4);
+
+  delay.delayTime.value = 0.28;
+  feedback.gain.value = 0.42;
+
+  filter.type = "lowpass";
+  filter.frequency.value = 1800;
+
+  osc.connect(gain);
+  gain.connect(filter);
+  filter.connect(ctx.destination);
+
+  gain.connect(delay);
+  delay.connect(feedback);
+  feedback.connect(delay);
+  delay.connect(filter);
+
+  osc.start(now);
+  osc.stop(now + 1.5);
+}
+
+    const ember = document.getElementById("ember");
+    const kiln = document.getElementById("kiln");
+    const openQuiz = document.getElementById("openQuiz");
+    const closeQuiz = document.getElementById("closeQuiz");
+    const quizPanel = document.getElementById("quizPanel");
+    const submitCode = document.getElementById("submitCode");
+    const codeInput = document.getElementById("codeInput");
+    const gate = document.getElementById("gate");
+
+    EscapeRoom.init();
+
+    ember.addEventListener("click", () => {
+      playNightPingEcho();
+      kilnFound = true;
+
+      ember.classList.add("hidden");
+      kiln.classList.remove("hidden-kiln");
+      kiln.classList.add("revealed");
+
+      openQuiz.classList.remove("hidden");
+
+      EscapeRoom.flashScreen();
+      EscapeRoom.playSound("warm");
+      EscapeRoom.say("Lò gạch cũ hiện ra trong sương. Câu hỏi trạm 1 đã được mở.");
+    });
+
+    openQuiz.addEventListener("click", () => {
+      if (!kilnFound) {
+        EscapeRoom.say("Chưa tìm thấy lò gạch. Hãy soi kĩ tàn tro đỏ.");
+        EscapeRoom.penalty("glitch", 5);
+        return;
+      }
+
+      quizPanel.classList.remove("hidden");
+      quizPanel.setAttribute("aria-hidden", "false");
+
+      EscapeRoom.say("Bảng câu hỏi đã mở. Chọn đáp án, rồi nhập mã gồm 2 chữ cái.");
+    });
+
+    closeQuiz.addEventListener("click", () => {
+      quizPanel.classList.add("hidden");
+      quizPanel.setAttribute("aria-hidden", "true");
+      EscapeRoom.say("Bảng câu hỏi đã tạm khép lại. Có thể mở lại bất cứ lúc nào.");
+    });
+
+    document.querySelectorAll(".answer").forEach(button => {
+      button.addEventListener("click", () => {
+        const q = button.dataset.q;
+        const value = button.dataset.value;
+
+        answers[q] = value;
+
+        document
+          .querySelectorAll(`.answer[data-q="${q}"]`)
+          .forEach(btn => btn.classList.remove("selected"));
+
+        button.classList.add("selected");
+
+        EscapeRoom.say(
+          `Bạn đã chọn câu ${q}: ${value}. Mã hiện tại: ${answers[1] || "_"}${answers[2] || "_"}`
+        );
+      });
+    });
+
+    codeInput.addEventListener("input", () => {
+      codeInput.value = codeInput.value.toUpperCase();
+    });
+
+    submitCode.addEventListener("click", () => {
+      const pickedCode = `${answers[1] || ""}${answers[2] || ""}`;
+      const inputCode = codeInput.value.trim().toUpperCase();
+
+      EscapeRoom.checkStationCode({
+        pickedCode,
+        inputCode,
+        correctCode: CORRECT_CODE,
+        stationNumber: STATION_NUMBER,
+        lockId: "lock1",
+        gateId: "gate",
+        explainIds: ["explain1", "explain2"],
+        successMessage:
+          "Chính xác. Mã CC đã mở khóa Trạm 1. Sương trước cổng bắt đầu tách đôi.",
+        wrongMessage:
+          "Mã chưa đúng. Lò gạch cũ vẫn im lìm trong sương. Hãy xem lại đáp án.",
+        onSuccess() {
+          setTimeout(() => {
+            window.location.href = NEXT_PAGE;
+          }, 5000);
+        }
+      });
+    });
+
+    gate.addEventListener("click", () => {
+      if (!gate.classList.contains("open")) {
+        EscapeRoom.say("Cổng vẫn khóa. Hãy giải đúng mã Trạm 1 trước.");
+        EscapeRoom.penalty("glitch", 5);
+        return;
+      }
+
+      window.location.href = NEXT_PAGE;
+    });
+  </script>
+</body>
+</html>
