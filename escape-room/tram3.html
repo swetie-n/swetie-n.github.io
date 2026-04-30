@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trạm 3 - Cổng nhà Bá Kiến</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="station-page station-3">
+  <div id="flash"></div>
+  <div id="crack"></div>
+  <div id="glitch"></div>
+  <div id="slam"></div>
+  <div id="redSlash"></div>
+  <div id="failMark">✕</div>
+
+  <main class="game-screen rejected-mode">
+    <header class="topbar">
+      <div class="humanity-box">
+        <span>Thanh nhân tính</span>
+        <div class="humanity-track">
+          <div id="humanityFill" class="humanity-fill"></div>
+        </div>
+      </div>
+
+      <div id="timer" class="timer">45:00</div>
+
+      <div class="locks">
+        <span class="lock broken">🔓</span>
+        <span class="lock broken">🔓</span>
+        <span id="lock3" class="lock">🔒</span>
+        <span class="lock">🔒</span>
+      </div>
+    </header>
+
+    <section class="viewport ba-kien-yard">
+      <div class="sky dark-red-sky"></div>
+      <div class="back-layer brick-wall"></div>
+      <div class="mid-layer cracked-yard"></div>
+      <div class="fog fog-a"></div>
+      <div class="fog fog-b"></div>
+
+      <button id="mudPuddle" class="mud-puddle" type="button" aria-label="Vũng bùn">
+        <span id="mudLayer" class="mud-layer"></span>
+        <span id="reflectionFace" class="reflection-face hidden">
+          <span class="face-eye left-eye"></span>
+          <span class="face-eye right-eye"></span>
+          <span class="face-mouth"></span>
+          <span class="glass-scar scar-a"></span>
+          <span class="glass-scar scar-b"></span>
+          <span class="glass-scar scar-c"></span>
+        </span>
+        <span class="mud-label">Gạt bùn để soi xuống vũng nước</span>
+      </button>
+
+      <div id="puzzlePanel" class="puzzle-panel hidden">
+        <h2>Mảnh ghép vô vọng</h2>
+        <p>
+          Kéo các mảnh vỡ vào khung để ghép chữ
+          <strong>LƯƠNG THIỆN</strong>. Nhưng dù cố ghép, vẫn sẽ có một khoảng
+          trống không thể lấp đầy.
+        </p>
+
+        <div id="slots" class="slots"></div>
+        <div id="pieces" class="pieces"></div>
+
+        <p id="puzzleMsg" class="puzzle-msg">
+          Bạn có thể thử ghép lại, hoặc chấp nhận ngay sự thiếu hụt.
+        </p>
+
+        <button id="acceptMissing" class="main-btn danger-btn hidden" type="button">
+          CHẤP NHẬN SỰ THIẾU HỤT
+        </button>
+      </div>
+
+      <div id="gate" class="wood-gate locked">
+        <div class="gate-door"></div>
+        <div class="gate-label">Cổng sang Trạm 4</div>
+      </div>
+    </section>
+
+    <section class="bottom-panel">
+      <div id="dialogue" class="dialogue">
+        Sân gạch nứt nẻ trước nhà Bá Kiến. Giữa sân có một vũng bùn đục.
+        Hãy gạt lớp bùn để nhìn xuống mặt nước.
+      </div>
+
+      <div class="control-panel">
+        <button id="openQuiz" class="main-btn hidden" type="button">
+          Mở câu hỏi Trạm 3
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <aside id="quizPanel" class="quiz-side-panel hidden" aria-hidden="true">
+    <div class="quiz-side-card">
+      <div class="quiz-side-header">
+        <div>
+          <p class="quiz-kicker">Hoạt động 3</p>
+          <h2>Trạm 3: Cổng nhà Bá Kiến</h2>
+        </div>
+
+        <button id="closeQuiz" class="main-btn ghost" type="button">
+          Đóng
+        </button>
+      </div>
+
+      <p class="quiz-note">
+        Chọn đáp án cho 2 câu hỏi, sau đó nhập mã gồm 2 chữ cái đáp án đúng.
+      </p>
+
+      <div class="question-card">
+        <h3>Câu 5</h3>
+        <p>
+          Khi đối mặt với Bá Kiến ở cuối truyện, câu nói nào của Chí Phèo
+          thể hiện rõ nhất sự bế tắc cùng cực và nhận thức cay đắng về
+          bi kịch bị cự tuyệt quyền làm người?
+        </p>
+
+        <button class="answer" data-q="5" data-value="A" type="button">
+          A. “Tao không đến đây xin năm hào.”
+        </button>
+        <button class="answer" data-q="5" data-value="B" type="button">
+          B. “Tao đã bảo tao không đòi tiền.”
+        </button>
+        <button class="answer" data-q="5" data-value="C" type="button">
+          C. “Tao muốn làm người lương thiện!”
+        </button>
+        <button class="answer" data-q="5" data-value="D" type="button">
+          D. “Không được! Ai cho tao lương thiện? Làm thế nào cho mất được những vết mảnh chai trên mặt này?”
+        </button>
+
+        <div id="explain5" class="explain hidden">
+          <strong>Giải thích:</strong>
+          Dù khao khát làm người lương thiện, câu hỏi tu từ “Ai cho tao lương thiện?”
+          mới là tiếng kêu tuyệt vọng nhất. Nó cho thấy Chí Phèo nhận ra con đường
+          trở lại làm người bình thường đã bị xã hội cũ tước đoạt.
+        </div>
+      </div>
+
+      <div class="question-card">
+        <h3>Câu 6</h3>
+        <p>
+          Khi miêu tả cảnh Chí Phèo đâm chết Bá Kiến rồi tự sát, người kể chuyện
+          đã sử dụng điểm nhìn và thái độ trần thuật như thế nào?
+        </p>
+
+        <button class="answer" data-q="6" data-value="A" type="button">
+          A. Điểm nhìn bên trong, đi sâu miêu tả nội tâm giằng xé và liên tục
+          đưa ra lời bình phẩm xót thương cho nhân vật.
+        </button>
+        <button class="answer" data-q="6" data-value="B" type="button">
+          B. Điểm nhìn bên ngoài, giữ lối trần thuật khá lạnh và hạn chế tối đa
+          việc đưa ra những bình phẩm, đánh giá.
+        </button>
+        <button class="answer" data-q="6" data-value="C" type="button">
+          C. Điểm nhìn toàn tri, giải thích cặn kẽ mọi ẩn ý sâu xa đằng sau
+          hành động giết người của Chí Phèo.
+        </button>
+        <button class="answer" data-q="6" data-value="D" type="button">
+          D. Điểm nhìn của dân làng Vũ Đại, bộc lộ thái độ hả hê, đồng tình
+          trước sự đền tội của cái ác.
+        </button>
+
+        <div id="explain6" class="explain hidden">
+          <strong>Giải thích:</strong>
+          Ở trường đoạn này, người kể chuyện giữ lối trần thuật khá lạnh, điểm nhìn
+          chủ yếu là điểm nhìn bên ngoài và không đưa ra phán quyết chắc chắn.
+          Điều đó tạo khoảng tự do để người đọc tự diễn dịch ý nghĩa cái chết của Chí Phèo.
+        </div>
+      </div>
+
+      <div class="code-area">
+        <p>Mã vượt trạm gồm 2 chữ cái đáp án đúng.</p>
+        <input id="codeInput" maxlength="2" placeholder="Nhập mã..." />
+        <button id="submitCode" class="main-btn" type="button">Mở khóa</button>
+      </div>
+    </div>
+  </aside>
+
+  <script src="common.js"></script>
+
+    <script>
+  const STATION_NUMBER = 3;
+  const CORRECT_CODE = "DB";
+  const NEXT_PAGE = "tram4.html";
+
+  const answers = {};
+
+  let mudProgress = 0;
+  let mudCleared = false;
+  let puzzleStarted = false;
+  let puzzleFailed = false;
+  let puzzleSolved = false;
+  let piecesPlaced = 0;
+
+  let draggedPiece = null;
+  let ghostPiece = null;
+  let touchOffsetX = 0;
+  let touchOffsetY = 0;
+
+  const mudPuddle = document.getElementById("mudPuddle");
+  const mudLayer = document.getElementById("mudLayer");
+  const reflectionFace = document.getElementById("reflectionFace");
+
+  const puzzlePanel = document.getElementById("puzzlePanel");
+  const slots = document.getElementById("slots");
+  const pieces = document.getElementById("pieces");
+  const puzzleMsg = document.getElementById("puzzleMsg");
+  const acceptMissing = document.getElementById("acceptMissing");
+
+  const openQuiz = document.getElementById("openQuiz");
+  const closeQuiz = document.getElementById("closeQuiz");
+  const quizPanel = document.getElementById("quizPanel");
+  const submitCode = document.getElementById("submitCode");
+  const codeInput = document.getElementById("codeInput");
+  const gate = document.getElementById("gate");
+  const failMark = document.getElementById("failMark");
+
+let puzzleAudioCtx = null;
+let puzzleNoiseSource = null;
+let puzzleNoiseGain = null;
+let puzzleNoiseFilter = null;
+
+function startPuzzleNoise() {
+  if (puzzleNoiseSource) return;
+
+  puzzleAudioCtx =
+    puzzleAudioCtx || new (window.AudioContext || window.webkitAudioContext)();
+
+  const ctx = puzzleAudioCtx;
+  const bufferSize = ctx.sampleRate * 2;
+  const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const data = noiseBuffer.getChannelData(0);
+
+  for (let i = 0; i < bufferSize; i++) {
+    data[i] = Math.random() * 2 - 1;
+  }
+
+  puzzleNoiseSource = ctx.createBufferSource();
+  puzzleNoiseSource.buffer = noiseBuffer;
+  puzzleNoiseSource.loop = true;
+
+  puzzleNoiseFilter = ctx.createBiquadFilter();
+  puzzleNoiseFilter.type = "bandpass";
+  puzzleNoiseFilter.frequency.value = 350;
+  puzzleNoiseFilter.Q.value = 0.7;
+
+  puzzleNoiseGain = ctx.createGain();
+  puzzleNoiseGain.gain.value = 0.015;
+
+  puzzleNoiseSource.connect(puzzleNoiseFilter);
+  puzzleNoiseFilter.connect(puzzleNoiseGain);
+  puzzleNoiseGain.connect(ctx.destination);
+
+  puzzleNoiseSource.start();
+}
+
+function updatePuzzleNoise() {
+  if (!puzzleNoiseGain || !puzzleNoiseFilter) return;
+
+  const level = piecesPlaced / 10;
+  const ctx = puzzleAudioCtx;
+  const now = ctx.currentTime;
+
+  puzzleNoiseGain.gain.cancelScheduledValues(now);
+  puzzleNoiseGain.gain.setTargetAtTime(0.015 + level * 0.16, now, 0.08);
+
+  puzzleNoiseFilter.frequency.setTargetAtTime(350 + level * 2400, now, 0.08);
+  puzzleNoiseFilter.Q.setTargetAtTime(0.7 + level * 5, now, 0.08);
+}
+
+function stopPuzzleNoise() {
+  if (!puzzleNoiseSource || !puzzleNoiseGain) return;
+
+  const ctx = puzzleAudioCtx;
+  const now = ctx.currentTime;
+
+  puzzleNoiseGain.gain.cancelScheduledValues(now);
+  puzzleNoiseGain.gain.setTargetAtTime(0.001, now, 0.15);
+
+  setTimeout(() => {
+    try {
+      puzzleNoiseSource.stop();
+    } catch (e) {}
+
+    puzzleNoiseSource = null;
+    puzzleNoiseGain = null;
+    puzzleNoiseFilter = null;
+  }, 500);
+}
+
+function playPuzzlePingEcho() {
+  puzzleAudioCtx =
+    puzzleAudioCtx || new (window.AudioContext || window.webkitAudioContext)();
+
+  const ctx = puzzleAudioCtx;
+  const now = ctx.currentTime;
+
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  const delay = ctx.createDelay();
+  const feedback = ctx.createGain();
+  const filter = ctx.createBiquadFilter();
+
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(980, now);
+  osc.frequency.exponentialRampToValueAtTime(420, now + 0.35);
+
+  gain.gain.setValueAtTime(0.001, now);
+  gain.gain.exponentialRampToValueAtTime(0.25, now + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
+
+  delay.delayTime.value = 0.24;
+  feedback.gain.value = 0.48;
+
+  filter.type = "lowpass";
+  filter.frequency.value = 2000;
+
+  osc.connect(gain);
+  gain.connect(filter);
+  filter.connect(ctx.destination);
+
+  gain.connect(delay);
+  delay.connect(feedback);
+  feedback.connect(delay);
+  delay.connect(filter);
+
+  osc.start(now);
+  osc.stop(now + 1.6);
+}
+
+
+  EscapeRoom.init();
+  buildPuzzle();
+
+  mudPuddle.addEventListener("click", clearMud);
+  mudPuddle.addEventListener("touchmove", event => {
+    event.preventDefault();
+    clearMud();
+  }, { passive: false });
+  mudPuddle.addEventListener("touchstart", event => {
+  event.preventDefault();
+  clearMud();
+}, { passive: false });
+
+  function clearMud() {
+    if (mudCleared) return;
+
+    mudProgress += 8;
+    EscapeRoom.playSound("splash");
+
+    const opacity = Math.max(0, 1 - mudProgress / 100);
+    mudLayer.style.opacity = opacity;
+
+    if (mudProgress < 35) {
+      EscapeRoom.say("Lớp bùn còn đặc. Hãy gạt thêm để nhìn rõ mặt nước.");
+    } else if (mudProgress < 70) {
+      EscapeRoom.say("Mặt nước dần lộ ra. Có thứ gì méo mó đang phản chiếu bên dưới.");
+    } else {
+      revealReflection();
+    }
+  }
+
+  function revealReflection() {
+    if (mudCleared) return;
+
+    mudCleared = true;
+    mudLayer.style.opacity = 0;
+
+    reflectionFace.classList.remove("hidden");
+    reflectionFace.classList.add("show");
+
+    mudPuddle.classList.add("cleared");
+
+    EscapeRoom.flashScreen();
+    EscapeRoom.playSound("crack");
+
+    EscapeRoom.say(
+      "Dưới lớp bùn, khuôn mặt bị xã hội khắc dấu hiện ra. Những vết mảnh chai như không thể rửa sạch."
+    );
+
+    setTimeout(() => {
+      mudPuddle.style.opacity = "0";
+      mudPuddle.style.pointerEvents = "none";
+      mudPuddle.style.transform = "scale(0.75)";
+    }, 4200);
+
+    setTimeout(() => {
+      mudPuddle.style.display = "none";
+      startPuzzle();
+    }, 4200);
+  }
+
+  function startPuzzle() {
+    if (puzzleStarted) return;
+
+    puzzleStarted = true;
+    puzzlePanel.classList.remove("hidden");
+
+	startPuzzleNoise();
+
+    acceptMissing.classList.remove("hidden");
+    acceptMissing.classList.add("pulse-danger");
+
+    EscapeRoom.say(
+      "Những mảnh vỡ hiện ra. Hãy thử ghép lại hai chữ “LƯƠNG THIỆN”, hoặc chấp nhận sự thiếu hụt."
+    );
+  }
+
+  function buildPuzzle() {
+    const slotLetters = ["L", "Ư", "Ơ", "N", "G", " ", "T", "H", "I", "Ệ", "N"];
+    const missingIndex = 5;
+    const pieceLetters = ["L", "Ư", "Ơ", "N", "G", "T", "H", "I", "Ệ", "N"];
+
+    slots.innerHTML = "";
+    pieces.innerHTML = "";
+    piecesPlaced = 0;
+
+    slotLetters.forEach((letter, index) => {
+      const slot = document.createElement("div");
+      slot.className = "slot";
+
+      if (index === missingIndex) {
+        slot.classList.add("missing");
+        slot.textContent = "?";
+        slot.dataset.locked = "true";
+      } else if (letter === " ") {
+        slot.classList.add("space-slot");
+      } else {
+        slot.dataset.answer = letter;
+      }
+
+      slot.addEventListener("dragover", event => {
+        event.preventDefault();
+      });
+
+      slot.addEventListener("drop", event => {
+        event.preventDefault();
+
+        const pieceId = event.dataTransfer.getData("piece-id");
+        const piece = document.querySelector(`.piece[data-id="${pieceId}"]`);
+
+        placePieceInSlot(piece, slot);
+      });
+
+      slots.appendChild(slot);
+    });
+
+    pieceLetters.forEach((letter, index) => {
+      const piece = document.createElement("div");
+      piece.className = "piece";
+      piece.textContent = letter;
+      piece.dataset.value = letter;
+      piece.dataset.id = `piece-${index}`;
+      piece.draggable = true;
+
+      piece.addEventListener("dragstart", event => {
+        if (!puzzleStarted || piece.classList.contains("used")) {
+          event.preventDefault();
+          return;
+        }
+
+        event.dataTransfer.setData("text/plain", letter);
+        event.dataTransfer.setData("piece-id", piece.dataset.id);
+      });
+
+      piece.addEventListener("touchstart", startTouchDrag, { passive: false });
+      piece.addEventListener("touchmove", moveTouchDrag, { passive: false });
+      piece.addEventListener("touchend", endTouchDrag, { passive: false });
+
+      pieces.appendChild(piece);
+    });
+  }
+
+  function startTouchDrag(event) {
+    if (!puzzleStarted || this.classList.contains("used")) return;
+
+    event.preventDefault();
+
+    draggedPiece = this;
+
+    const touch = event.touches[0];
+    const rect = draggedPiece.getBoundingClientRect();
+
+    touchOffsetX = touch.clientX - rect.left;
+    touchOffsetY = touch.clientY - rect.top;
+
+    ghostPiece = draggedPiece.cloneNode(true);
+    ghostPiece.classList.add("dragging-ghost");
+    ghostPiece.style.position = "fixed";
+    ghostPiece.style.left = `${rect.left}px`;
+    ghostPiece.style.top = `${rect.top}px`;
+    ghostPiece.style.width = `${rect.width}px`;
+    ghostPiece.style.height = `${rect.height}px`;
+    ghostPiece.style.zIndex = "9999";
+    ghostPiece.style.pointerEvents = "none";
+
+    document.body.appendChild(ghostPiece);
+    draggedPiece.style.opacity = "0.35";
+  }
+
+  function moveTouchDrag(event) {
+    if (!draggedPiece || !ghostPiece) return;
+
+    event.preventDefault();
+
+    const touch = event.touches[0];
+
+    ghostPiece.style.left = `${touch.clientX - touchOffsetX}px`;
+    ghostPiece.style.top = `${touch.clientY - touchOffsetY}px`;
+  }
+
+  function endTouchDrag(event) {
+    if (!draggedPiece || !ghostPiece) return;
+
+    event.preventDefault();
+
+    const touch = event.changedTouches[0];
+
+    ghostPiece.style.display = "none";
+
+    const target = document.elementFromPoint(touch.clientX, touch.clientY);
+    const slot = target ? target.closest(".slot") : null;
+
+    if (slot) {
+      placePieceInSlot(draggedPiece, slot);
+    }
+
+    draggedPiece.style.opacity = "";
+    ghostPiece.remove();
+
+    draggedPiece = null;
+    ghostPiece = null;
+  }
+
+  function placePieceInSlot(piece, slot) {
+    if (!puzzleStarted || puzzleFailed || puzzleSolved) return;
+    if (!piece || piece.classList.contains("used")) return;
+
+    if (slot.dataset.locked === "true") {
+      EscapeRoom.say("Khoảng trống ấy không thể lấp đầy. Có một điều đã bị tước mất.");
+      EscapeRoom.penalty("glitch", 5);
+      return;
+    }
+
+    if (slot.classList.contains("space-slot")) return;
+    if (slot.textContent.trim() !== "") return;
+
+    slot.textContent = piece.dataset.value;
+    slot.classList.add("filled");
+
+    piece.classList.add("used");
+    piece.draggable = false;
+
+    piecesPlaced++;
+    updatePuzzleNoise();
+
+    EscapeRoom.playSound("crack");
+    checkPuzzleState();
+  }
+
+  function checkPuzzleState() {
+    if (piecesPlaced < 10) {
+      puzzleMsg.textContent =
+        `Đã đặt ${piecesPlaced}/10 mảnh. Cụm chữ “LƯƠNG THIỆN” vẫn còn khuyết.`;
+
+      EscapeRoom.say(
+        `Mảnh ghép thứ ${piecesPlaced} đã được đặt. Nhưng chữ “LƯƠNG THIỆN” vẫn chưa trọn vẹn.`
+      );
+
+      return;
+    }
+
+    triggerPuzzleFailure();
+  }
+
+  function triggerPuzzleFailure() {
+    if (puzzleFailed) return;
+
+    puzzleFailed = true;
+
+    playPuzzlePingEcho();
+stopPuzzleNoise();
+
+    puzzleMsg.textContent =
+      "Tìm kiếm vô ích! Cụm chữ “LƯƠNG THIỆN” vẫn khuyết một khoảng trống không thể lấp đầy.";
+
+    puzzlePanel.classList.add("failed");
+
+    EscapeRoom.flash("redSlash", 700);
+    EscapeRoom.playSound("slam");
+
+    failMark.classList.add("show");
+
+    EscapeRoom.say(
+      "Tìm kiếm vô ích! Dù đã ghép đủ các mảnh, chữ “LƯƠNG THIỆN” vẫn không thể hoàn chỉnh."
+    );
+
+    acceptMissing.classList.remove("hidden");
+    acceptMissing.classList.add("pulse-danger");
+  }
+
+  acceptMissing.addEventListener("click", () => {
+    puzzleSolved = true;
+    puzzleFailed = true;
+
+    puzzlePanel.classList.add("failed");
+
+    acceptMissing.classList.remove("pulse-danger");
+    acceptMissing.classList.add("hidden");
+
+    openQuiz.classList.remove("hidden");
+
+    EscapeRoom.flash("redSlash", 600);
+    EscapeRoom.playSound("door");
+
+    EscapeRoom.say(
+      "Bạn đã chấp nhận sự thiếu hụt. Có những khoảng trống không thể lấp đầy, dù ta đã thử ghép hay chưa. Câu hỏi Trạm 3 đã mở."
+    );
+  });
+
+  openQuiz.addEventListener("click", () => {
+    if (!puzzleSolved) {
+      EscapeRoom.say("Bạn cần chấp nhận sự thiếu hụt trước khi mở câu hỏi Trạm 3.");
+      EscapeRoom.penalty("glitch", 5);
+      return;
+    }
+
+    quizPanel.classList.remove("hidden");
+    quizPanel.setAttribute("aria-hidden", "false");
+
+    EscapeRoom.say("Bảng câu hỏi Trạm 3 đã mở. Chọn đáp án, rồi nhập mã gồm 2 chữ cái.");
+  });
+
+  closeQuiz.addEventListener("click", () => {
+    quizPanel.classList.add("hidden");
+    quizPanel.setAttribute("aria-hidden", "true");
+
+    EscapeRoom.say("Bảng câu hỏi đã tạm khép lại. Sân gạch vẫn còn vết nứt không lành.");
+  });
+
+  document.querySelectorAll(".answer").forEach(button => {
+    button.addEventListener("click", () => {
+      const q = button.dataset.q;
+      const value = button.dataset.value;
+
+      answers[q] = value;
+
+      document
+        .querySelectorAll(`.answer[data-q="${q}"]`)
+        .forEach(btn => btn.classList.remove("selected"));
+
+      button.classList.add("selected");
+
+      EscapeRoom.say(
+        `Bạn đã chọn câu ${q}: ${value}. Mã hiện tại: ${answers[5] || "_"}${answers[6] || "_"}`
+      );
+    });
+  });
+
+  codeInput.addEventListener("input", () => {
+    codeInput.value = codeInput.value.toUpperCase();
+  });
+
+  submitCode.addEventListener("click", () => {
+    const pickedCode = `${answers[5] || ""}${answers[6] || ""}`;
+    const inputCode = codeInput.value.trim().toUpperCase();
+
+    EscapeRoom.checkStationCode({
+      pickedCode,
+      inputCode,
+      correctCode: CORRECT_CODE,
+      stationNumber: STATION_NUMBER,
+      lockId: "lock3",
+      gateId: "gate",
+      explainIds: ["explain5", "explain6"],
+      successMessage:
+        "Chính xác. Mã DB đã mở khóa Trạm 3. Một vệt đỏ xé ngang màn hình, camera như bị giật ngược ra đường làng.",
+      wrongMessage:
+        "Mã chưa đúng. Cánh cổng nhà Bá Kiến vẫn khóa chặt. Hãy xem lại đáp án.",
+      onSuccess() {
+        setTimeout(() => {
+          window.location.href = NEXT_PAGE;
+        }, 5000);
+      }
+    });
+  });
+
+  gate.addEventListener("click", () => {
+    if (!gate.classList.contains("open")) {
+      EscapeRoom.say("Cổng vẫn khóa. Hãy giải đúng mã Trạm 3 trước.");
+      EscapeRoom.penalty("glitch", 5);
+      return;
+    }
+
+    window.location.href = NEXT_PAGE;
+
+  });
+</script>
+</body>
+</html>
