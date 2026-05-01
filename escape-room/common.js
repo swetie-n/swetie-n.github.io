@@ -1,6 +1,6 @@
 const EscapeRoom = {
   humanity: Number(localStorage.getItem("humanity")) || 100,
-  timeLeft: Number(localStorage.getItem("timeLeft")) || 15 * 60,
+  timeLeft: Number(localStorage.getItem("timeLeft")) || 10 * 60,
   timerId: null,
   soundOn: true,
   audioCtx: null,
