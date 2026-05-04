@@ -628,7 +628,7 @@ document.addEventListener("keydown", startRuralHorrorAmbient, { once: true });
 
     function loadProgress() {
       const humanity = Number(localStorage.getItem("humanity")) || 100;
-      const timeLeft = Number(localStorage.getItem("timeLeft")) || 10 * 60;
+      const timeLeft = Number(localStorage.getItem("timeLeft")) || 15 * 60;
 
       const humanityBar = document.getElementById("humanityBar");
       const humanityText = document.getElementById("humanityText");
@@ -638,7 +638,7 @@ document.addEventListener("keydown", startRuralHorrorAmbient, { once: true });
       humanityBar.style.width = `${Math.max(0, Math.min(100, humanity))}%`;
       humanityText.textContent = `${Math.max(0, Math.min(100, humanity))}%`;
 
-      const timePercent = Math.max(0, Math.min(100, timeLeft / (10 * 60) * 100));
+      const timePercent = Math.max(0, Math.min(100, timeLeft / (15 * 60) * 100));
       timeBar.style.width = `${timePercent}%`;
       timeText.textContent = formatTime(timeLeft);
     }
