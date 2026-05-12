@@ -1778,3 +1778,196 @@ button {
     padding: 10px;
   }
 }
+
+/* ======================================================
+   MOBILE FIX TRẠM 1, 2, 4
+   Sửa lỗi nút "Mở câu hỏi" bị che + quiz không cuộn được
+   ====================================================== */
+
+@media (max-width: 768px) {
+  html,
+  body {
+    width: 100%;
+    height: 100dvh;
+    min-height: 100dvh;
+    overflow: hidden;
+    touch-action: manipulation;
+  }
+
+  body.station-1 .game-screen,
+  body.station-2 .game-screen,
+  body.station-4 .game-screen {
+    width: 100vw;
+    height: 100dvh;
+    min-height: 100dvh;
+    overflow: hidden;
+  }
+
+  body.station-1 .viewport,
+  body.station-2 .viewport,
+  body.station-4 .viewport {
+    height: 100dvh;
+  }
+
+  /* Đẩy panel lên khỏi thanh điều hướng điện thoại */
+  body.station-1 .bottom-panel,
+  body.station-2 .bottom-panel,
+  body.station-4 .bottom-panel {
+    left: 10px;
+    right: 10px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+
+    min-height: 0;
+    max-height: 34dvh;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 8px;
+
+    padding: 10px 12px calc(12px + env(safe-area-inset-bottom));
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  body.station-1 .dialogue,
+  body.station-1 #dialogue,
+  body.station-2 .dialogue,
+  body.station-2 #dialogue,
+  body.station-4 .dialogue,
+  body.station-4 #dialogue {
+    max-height: calc(34dvh - 70px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+
+    font-size: clamp(1.05rem, 4.3vw, 1.22rem);
+    line-height: 1.45;
+    padding-right: 4px;
+  }
+
+  body.station-1 .control-panel,
+  body.station-2 .control-panel,
+  body.station-4 .control-panel {
+    min-height: 52px;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  body.station-1 .bottom-panel .main-btn,
+  body.station-2 .bottom-panel .main-btn,
+  body.station-4 .bottom-panel .main-btn {
+    width: min(360px, 100%);
+    min-height: 48px;
+    margin: 0 auto;
+    padding: 12px 14px;
+
+    font-size: clamp(1rem, 4.2vw, 1.15rem);
+    line-height: 1.2;
+    white-space: normal;
+  }
+
+  /* Khi mở quiz thì panel câu hỏi thành modal toàn màn hình */
+  body.station-1 .quiz-side-panel,
+  body.station-2 .quiz-side-panel,
+  body.station-4 .quiz-side-panel {
+    position: fixed;
+    z-index: 10000;
+
+    top: max(10px, env(safe-area-inset-top));
+    left: 10px;
+    right: 10px;
+    bottom: max(10px, env(safe-area-inset-bottom));
+
+    width: auto;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  body.station-1 .quiz-side-card,
+  body.station-2 .quiz-side-card,
+  body.station-4 .quiz-side-card {
+    height: 100%;
+    max-height: calc(100dvh - 20px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+
+    padding: 14px;
+    border-radius: 18px;
+  }
+
+  body.station-1 .quiz-side-header,
+  body.station-2 .quiz-side-header,
+  body.station-4 .quiz-side-header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+
+    margin: -14px -14px 12px;
+    padding: 14px;
+
+    background: rgba(18, 15, 13, 0.98);
+    border-radius: 18px 18px 0 0;
+  }
+
+  body.station-1 .quiz-side-header h2,
+  body.station-2 .quiz-side-header h2,
+  body.station-4 .quiz-side-header h2 {
+    font-size: clamp(1.12rem, 4.8vw, 1.35rem);
+    line-height: 1.25;
+  }
+
+  body.station-1 .question-card,
+  body.station-2 .question-card,
+  body.station-4 .question-card {
+    margin: 12px 0;
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  body.station-1 .question-card p,
+  body.station-2 .question-card p,
+  body.station-4 .question-card p {
+    font-size: clamp(0.98rem, 4vw, 1.08rem);
+    line-height: 1.5;
+  }
+
+  body.station-1 .answer,
+  body.station-2 .answer,
+  body.station-4 .answer {
+    min-height: 44px;
+    padding: 12px;
+    font-size: clamp(0.96rem, 3.9vw, 1.06rem);
+    line-height: 1.4;
+  }
+
+  body.station-1 .code-area,
+  body.station-2 .code-area,
+  body.station-4 .code-area {
+    margin-bottom: 18px;
+    padding: 14px;
+  }
+
+  body.station-1 .code-area input,
+  body.station-2 .code-area input,
+  body.station-4 .code-area input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  /* Khi quiz mở, giấu panel dưới để không đè nút/khung câu hỏi */
+  body.quiz-open.station-1 .bottom-panel,
+  body.quiz-open.station-2 .bottom-panel,
+  body.quiz-open.station-4 .bottom-panel {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(12px);
+  }
+
+  body.quiz-open.station-1 .viewport,
+  body.quiz-open.station-2 .viewport,
+  body.quiz-open.station-4 .viewport {
+    filter: brightness(0.72) blur(1px);
+  }
+}
