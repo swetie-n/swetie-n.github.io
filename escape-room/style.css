@@ -1778,4 +1778,84 @@ button {
     padding: 10px;
   }
 
+/* ===== MOBILE SCROLL FIX ===== */
+@media (max-width: 768px) {
+  html,
+  body {
+    width: 100%;
+    min-height: 100%;
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: auto !important;
+    touch-action: pan-y;
+  }
+
+  body {
+    position: relative;
+  }
+
+  .game-screen,
+  .station,
+  .scene,
+  .escape-room,
+  main {
+    min-height: 100vh;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .control-panel,
+  .dialogue-box,
+  .bottom-panel,
+  .quiz-panel,
+  .quiz-side-panel,
+  .quiz-modal,
+  .quiz-modal-card {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .control-panel,
+  .dialogue-box,
+  .bottom-panel {
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    margin: 16px auto 24px;
+    width: calc(100% - 24px);
+    z-index: 20;
+  }
+
+  .quiz-side-panel,
+  .quiz-panel {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: calc(100% - 24px);
+    margin: 12px auto 28px;
+    z-index: 25;
+  }
+
+  .quiz-modal {
+    position: relative !important;
+    inset: auto !important;
+    display: block !important;
+    background: transparent !important;
+    padding: 0 !important;
+  }
+
+  .quiz-modal-card {
+    width: calc(100% - 24px);
+    margin: 12px auto 28px;
+  }
+
+  button,
+  .answer-btn,
+  .choice-btn {
+    min-height: 44px;
+    font-size: 16px;
+  }
 }
