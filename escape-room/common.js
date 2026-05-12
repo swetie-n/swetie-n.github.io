@@ -577,3 +577,46 @@ if (kind === "paddle") {
     this.tone(440, 0.15);
   }
 };
+
+/* ======================================================
+   MOBILE QUIZ AUTO FIX
+   Tự xử lí khi #quizPanel mở/đóng ở các trạm
+   ====================================================== */
+
+(function setupMobileQuizFix() {
+  function initMobileQuizFix() {
+    const quizPanel = document.getElementById("quizPanel");
+    if (!quizPanel) return;
+
+    const syncQuizState = () => {
+      const isOpen =
+        !quizPanel.classList.contains("hidden") &&
+        quizPanel.getAttribute("aria-hidden") !== "true";
+
+      document.body.classList.toggle("quiz-open", isOpen);
+
+      if (isOpen) {
+        const card = quizPanel.querySelector(".quiz-side-card");
+
+        requestAnimationFrame(() => {
+          if (card) card.scrollTop = 0;
+        });
+      }
+    };
+
+    const observer = new MutationObserver(syncQuizState);
+
+    observer.observe(quizPanel, {
+      attributes: true,
+      attributeFilter: ["class", "aria-hidden"]
+    });
+
+    syncQuizState();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initMobileQuizFix);
+  } else {
+    initMobileQuizFix();
+  }
+})();
